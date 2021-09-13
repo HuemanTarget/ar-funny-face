@@ -8,10 +8,10 @@
 import SwiftUI
 import RealityKit
 
+var arView: ARView!
+
 struct ContentView : View {
   @State var propId: Int = 0
-  
-  var arView: ARView!
   
   var body: some View {
     
@@ -50,14 +50,13 @@ struct ContentView : View {
       }
     }
     
-   
+    
   }
   
   func TakeSnapshots() {
-    arView.snapshot(saveToHDR: false) { image in
+    arView.snapshot(saveToHDR: false) { (image) in
       let compressedImage = UIImage(
-        data: (image?.pngData())!
-      )
+        data: (image?.pngData())!)
       
       UIImageWriteToSavedPhotosAlbum(compressedImage!, nil, nil, nil)
     }
@@ -70,13 +69,13 @@ struct ARViewContainer: UIViewRepresentable {
   
   func makeUIView(context: Context) -> ARView {
     
-    let arView = ARView(frame: .zero)
+    arView = ARView(frame: .zero)
     
     // Load the "Box" scene from the "Experience" Reality File
-    //        let boxAnchor = try! Experience.loadBox()
+    let boxAnchor = try! Experience.loadBox()
     
     // Add the box anchor to the scene
-    //        arView.scene.anchors.append(boxAnchor)
+    arView.scene.anchors.append(boxAnchor)
     
     return arView
     
