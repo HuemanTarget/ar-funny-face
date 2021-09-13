@@ -11,6 +11,8 @@ import RealityKit
 struct ContentView : View {
   @State var propId: Int = 0
   
+  var arView: ARView!
+  
   var body: some View {
     
     ZStack(alignment: .bottom) {
@@ -29,7 +31,7 @@ struct ContentView : View {
         Spacer()
         
         Button(action: {
-          // self.TakeSnapshots()
+          self.TakeSnapshots()
         }) {
           Image("ShutterButton")
             .clipShape(Circle())
@@ -47,7 +49,18 @@ struct ContentView : View {
         Spacer()
       }
     }
+    
    
+  }
+  
+  func TakeSnapshots() {
+    arView.snapshot(saveToHDR: false) { image in
+      let compressedImage = UIImage(
+        data: (image?.pngData())!
+      )
+      
+      UIImageWriteToSavedPhotosAlbum(compressedImage!, nil, nil, nil)
+    }
   }
 }
 
