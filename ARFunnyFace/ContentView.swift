@@ -17,7 +17,34 @@ struct ContentView : View {
       ARViewContainer(propId: $propId).edgesIgnoringSafeArea(.all)
       
       HStack {
+        Spacer()
         
+        Button(action: {
+          self.propId = self.propId <= 0 ? 0 : self.propId - 1
+        }) {
+          Image("PreviousButton")
+            .clipShape(Circle())
+        }
+        
+        Spacer()
+        
+        Button(action: {
+          // self.TakeSnapshots()
+        }) {
+          Image("ShutterButton")
+            .clipShape(Circle())
+        }
+        
+        Spacer()
+        
+        Button(action: {
+          self.propId = self.propId >= 2 ? 2 : self.propId + 1
+        }) {
+          Image("NextButton")
+            .clipShape(Circle())
+        }
+        
+        Spacer()
       }
     }
    
